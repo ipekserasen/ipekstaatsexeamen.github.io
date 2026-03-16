@@ -2,249 +2,239 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>StudyHub – Examensblog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyHub – Staatsexamen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Dein zentrales Stylesheet -->
   <link rel="stylesheet" href="style.css">
-  <script defer src="app.js"></script>
 </head>
 <body>
   <header class="main-header">
-    <div class="header-left">
-      <h1>StudyHub · Examensblog</h1>
-      <p>Berlin · Erstes Examen Oktober 2027 · Alpmann Schmidt</p>
-    </div>
-    <div class="header-right">
-      <span class="pill">Zivilrecht · Strafrecht · Öffentliches Recht</span>
-    </div>
+    <h1>StudyHub – Staatsexamen Berlin</h1>
+    <p>Dein Lern-Hub für das erste Examen, mit Plan, Stoff und persönlichem Blog.</p>
   </header>
 
   <main class="layout">
-    <!-- Linke Seite: Kalender + Tagesplan -->
-    <section class="panel calendar-panel">
-      <h2 class="panel-title">Monatsplan</h2>
-
-      <div id="calendar-controls">
-        <button id="prev-month" class="circle-btn">&lt;</button>
-        <span id="current-month"></span>
-        <button id="next-month" class="circle-btn">&gt;</button>
-      </div>
-
-      <div class="weekday-row">
-        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+    <!-- LINKSSPALTE: Dashboard / Monatsplan -->
+    <section id="calendar-section" class="card">
+      <h2>Monatsplan</h2>
+      <div id="calendar-header">
+        <button id="prev-month">&lt;</button>
+        <span id="month-label"></span>
+        <button id="next-month">&gt;</button>
       </div>
       <div id="calendar-grid"></div>
-
       <div id="day-detail">
-        <h3 id="day-title">Heute</h3>
-        <textarea id="day-notes" placeholder="Tagesplan, To‑Dos, Rep‑Vorbereitung…"></textarea>
+        <h3 id="day-title">Tagesplan</h3>
+        <ul id="day-todo-list"></ul>
+        <div class="day-add-row">
+          <input id="new-day-todo" type="text" placeholder="Neuen To-Do-Punkt für diesen Tag eingeben">
+          <button id="add-day-todo">+</button>
+        </div>
       </div>
     </section>
 
-    <!-- Rechte Seite: Blog + Stoff -->
-    <section class="panel content-panel">
-      <nav class="tabs">
-        <button data-tab="blog" class="tab active">Blog</button>
-        <button data-tab="zivil" class="tab">Zivilrecht</button>
-        <button data-tab="straf" class="tab">Strafrecht</button>
-        <button data-tab="oeff" class="tab">Öffentliches Recht</button>
-      </nav>
+    <!-- MITTELSPALTE: Stoffplan nach § 3 JAO -->
+    <section id="stoffplan-section" class="card">
+      <h2>Stoffplan (§ 3 JAO)</h2>
 
-      <div id="tab-blog" class="tab-content active">
-        <h2 class="panel-title">Examensblog</h2>
-        <p class="hint">
-          Schreibe hier, wie deine Woche läuft, was im Rep wichtig war, welche
-          Themen dich nerven oder stolz machen – dein kleines Jura‑Tagebuch.
-        </p>
-        <textarea id="blog-entry" placeholder="Heutiger Eintrag…"></textarea>
-      </div>
-
-      <div id="tab-zivil" class="tab-content">
-        <h2 class="panel-title">Zivilrecht – § 3 JAO</h2>
-        <p class="hint">
-          Große Blöcke nach § 3 JAO; Häkchen setzen, wenn du einen Bereich
-          „examenstauglich“ findest. Notizen = wichtige Probleme, Schemata,
-          Hinweise aus dem Rep.
-        </p>
-        <ul class="topic-list" id="zivil-topics">
+      <!-- BGB AT -->
+      <article class="topic" data-topic-id="bgb-at">
+        <header>
+          <h3>Bürgerliches Recht – BGB Allgemeiner Teil (R)</h3>
+          <label>
+            <input type="checkbox" class="topic-done">
+            Bereich erledigt
+          </label>
+        </header>
+        <ul class="subtopic-list">
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-bgb-at">
-              <span>BGB Allgemeiner Teil (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Rechtsgeschäft, Willenserklärung, Zugang, Auslegung
             </label>
-            <textarea class="topic-note" data-id="note-zr-bgb-at"
-              placeholder="z.B. Willenserklärung, Anfechtung, Geschäftsfähigkeit, Stellvertretung…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-schuldrecht">
-              <span>Recht der Schuldverhältnisse (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Geschäftsfähigkeit, Nichtigkeit, Anfechtung
             </label>
-            <textarea class="topic-note" data-id="note-zr-schuldrecht"
-              placeholder="Leistungsstörungen, GoA, cic, Deliktsrecht, Bereicherungsrecht…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-sachenrecht">
-              <span>Sachenrecht (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Stellvertretung, Vertretungsmacht, Vertreter ohne VM
             </label>
-            <textarea class="topic-note" data-id="note-zr-sachenrecht"
-              placeholder="Erwerb, Besitz, Eigentum, EBV, gutgläubiger Erwerb…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-familienrecht">
-              <span>Familienrecht (G)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Bedingung, Befristung, Form, AGB-Grundzüge
             </label>
-            <textarea class="topic-note" data-id="note-zr-familienrecht"
-              placeholder="Ehe, Scheidung, Unterhalt, elterliche Sorge…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-erbrecht">
-              <span>Erbrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-zr-erbrecht"
-              placeholder="Erbfolge, Pflichtteil, Testament, Erbschein…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-handelsrecht">
-              <span>Handelsrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-zr-handelsrecht"
-              placeholder="Kaufmann, Handelsfirma, Prokura, Handelskauf…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-gesellschaftsrecht">
-              <span>Gesellschaftsrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-zr-gesellschaftsrecht"
-              placeholder="OHG, KG, GmbH: Errichtung, Vertretung, Haftung…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="zr-arbeitsrecht">
-              <span>Arbeitsrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-zr-arbeitsrecht"
-              placeholder="Begründung, Inhalt, Beendigung, Leistungsstörungen, Haftung…"></textarea>
           </li>
         </ul>
-      </div>
+        <textarea class="topic-notes"
+          placeholder="Notizen aus dem Rep: typische Klausurkonstellationen, Standardfälle, Streitstände..."></textarea>
+      </article>
 
-      <div id="tab-straf" class="tab-content">
-        <h2 class="panel-title">Strafrecht – § 3 JAO</h2>
-        <p class="hint">
-          Grobe Cluster für AT und BT gemäß § 3 JAO. Nutze die Notizen für
-          Standardprobleme, Streitstände und Lieblingsfälle aus dem Rep.
-        </p>
-        <ul class="topic-list" id="straf-topics">
+      <!-- Schuldrecht -->
+      <article class="topic" data-topic-id="schuldrecht">
+        <header>
+          <h3>Bürgerliches Recht – Schuldrecht (R)</h3>
+          <label>
+            <input type="checkbox" class="topic-done">
+            Bereich erledigt
+          </label>
+        </header>
+        <ul class="subtopic-list">
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="str-at">
-              <span>Strafrecht Allgemeiner Teil (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Zustandekommen von Schuldverhältnissen, Vertragstypen (Kauf, Miete, Pacht in Grundzügen)
             </label>
-            <textarea class="topic-note" data-id="note-str-at"
-              placeholder="Aufbau, Versuch, Unterlassung, Irrtümer, Teilnahme…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="str-bt-lebensdelikte">
-              <span>Leben, Körper, Freiheit (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Leistungsstörungen (Unmöglichkeit, Verzug, Pflichtverletzung, Schadensersatz)
             </label>
-            <textarea class="topic-note" data-id="note-str-bt-lebensdelikte"
-              placeholder="Tötungsdelikte, KV, Freiheitsberaubung, Nötigung, Bedrohung…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="str-bt-vermoegensdelikte">
-              <span>Vermögensdelikte (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              GoA, Bereicherungsrecht, Deliktsrecht (Überblick)
             </label>
-            <textarea class="topic-note" data-id="note-str-bt-vermoegensdelikte"
-              placeholder="Diebstahl, Raub, Erpressung, Betrug, Untreue, Hehlerei…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="str-bt-urkunden">
-              <span>Urkundendelikte & Daten (R)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-str-bt-urkunden"
-              placeholder="Urkundenfälschung, Fälschung technischer Aufzeichnungen, Datenfälschung…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="str-bt-sonstige">
-              <span>Sonstige Katalogdelikte § 3 JAO (R)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-str-bt-sonstige"
-              placeholder="Beleidigung, Brandstiftung, Straßenverkehr, Amtsträgerdelikte…"></textarea>
           </li>
         </ul>
-      </div>
+        <textarea class="topic-notes"
+          placeholder="Was betont dein Rep hier? Reihenfolgen, Anspruchsaufbau, Klassiker-Fälle..."></textarea>
+      </article>
 
-      <div id="tab-oeff" class="tab-content">
-        <h2 class="panel-title">Öffentliches Recht – § 3 JAO</h2>
-        <p class="hint">
-          Staatsrecht, Allgemeines Verwaltungsrecht und besonderes Verwaltungsrecht
-          nach § 3 JAO. Ideal für Schemata, Standardgutachten und Klausurkonstellationen.
-        </p>
-        <ul class="topic-list" id="oeff-topics">
+      <!-- Sachenrecht -->
+      <article class="topic" data-topic-id="sachenrecht">
+        <header>
+          <h3>Bürgerliches Recht – Sachenrecht (R)</h3>
+          <label>
+            <input type="checkbox" class="topic-done">
+            Bereich erledigt
+          </label>
+        </header>
+        <ul class="subtopic-list">
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-staatsrecht">
-              <span>Staatsrecht (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Besitz, Eigentum, Herausgabeanspruch (§ 985) und Abwehransprüche
             </label>
-            <textarea class="topic-note" data-id="note-oeff-staatsrecht"
-              placeholder="Grundrechte, Staatsorganisationsrecht (ohne Notstands-/Finanzverfassungsrecht)…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-avr">
-              <span>Allgemeines Verwaltungsrecht (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Übereignung beweglicher Sachen, Eigentumserwerb vom Nichtberechtigten
             </label>
-            <textarea class="topic-note" data-id="note-oeff-avr"
-              placeholder="VA, Realakt, Klagearten, Ermächtigungsgrundlage, Ermessen…"></textarea>
           </li>
           <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-polizei-ordnungsrecht">
-              <span>Polizei- und Ordnungsrecht (R)</span>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Sicherungsübereignung, Grundzüge Grundpfandrechte (ohne Details zu Pfandrechten an Rechten)
             </label>
-            <textarea class="topic-note" data-id="note-oeff-polizei-ordnungsrecht"
-              placeholder="Gefahrenbegriff, Standardmaßnahmen, Störer/Nichtstörer…"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-versammlungsrecht">
-              <span>Versammlungsrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-oeff-versammlungsrecht"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-bauordnungsrecht">
-              <span>Bauordnungsrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-oeff-bauordnungsrecht"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-bauplanungsrecht">
-              <span>Bauplanungsrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-oeff-bauplanungsrecht"></textarea>
-          </li>
-          <li>
-            <label class="topic-label">
-              <input type="checkbox" class="topic-checkbox" data-id="oeff-kommunalrecht">
-              <span>Kommunalrecht (G)</span>
-            </label>
-            <textarea class="topic-note" data-id="note-oeff-kommunalrecht"></textarea>
           </li>
         </ul>
-      </div>
+        <textarea class="topic-notes"
+          placeholder="Notizen: typische Fehlerquellen bei Verfügungsgeschäften etc."></textarea>
+      </article>
+
+      <!-- Strafrecht AT -->
+      <article class="topic" data-topic-id="strafrecht-at">
+        <header>
+          <h3>Strafrecht – Allgemeiner Teil (R)</h3>
+          <label>
+            <input type="checkbox" class="topic-done">
+            Bereich erledigt
+          </label>
+        </header>
+        <ul class="subtopic-list">
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Tatbestandsaufbau, Kausalität, objektive Zurechnung
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Vorsatz, Irrtümer, Fahrlässigkeit
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Rechtfertigungsgründe, Entschuldigungsgründe
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Versuch, Rücktritt, Beteiligungsformen
+            </label>
+          </li>
+        </ul>
+        <textarea class="topic-notes"
+          placeholder="Streitstände zu Versuch/Beteiligung, Klassiker aus dem Rep..."></textarea>
+      </article>
+
+      <!-- ÖffR / Staatsrecht -->
+      <article class="topic" data-topic-id="staatsrecht">
+        <header>
+          <h3>Öffentliches Recht – Staatsrecht (R)</h3>
+          <label>
+            <input type="checkbox" class="topic-done">
+            Bereich erledigt
+          </label>
+        </header>
+        <ul class="subtopic-list">
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Staatsstrukturprinzipien, Organe des Bundes, Gesetzgebungsverfahren
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Grundrechte: Schutzbereich, Eingriff, Rechtfertigung
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="subtopic-checkbox">
+              Verfassungsbeschwerde in Grundzügen
+            </label>
+          </li>
+        </ul>
+        <textarea class="topic-notes"
+          placeholder="Hinweise deiner AG/Rep-Leitung zu typischen Klausurkonstellationen."></textarea>
+      </article>
+
+      <!-- Du kannst analog weitere Topics für VerwR, Verfahrensrecht etc. ergänzen -->
+    </section>
+
+    <!-- RECHTSSPALTE: Persönlicher Blog -->
+    <section id="blog-section" class="card">
+      <h2>Study Blog</h2>
+      <form id="blog-form">
+        <input type="text" id="blog-title" placeholder="Titel (z.B. ZR-Rep heute, 3. Durchgang)" required>
+        <textarea id="blog-content"
+          placeholder="Was habe ich gelernt? Was lief gut? Welche Hinweise habe ich bekommen?"></textarea>
+        <button type="submit">Eintrag speichern</button>
+      </form>
+      <div id="blog-entries"></div>
     </section>
   </main>
+
+  <footer class="main-footer">
+    <small>JAO Berlin – persönlicher Lernhub. Alles nur lokal gespeichert.</small>
+  </footer>
+
+  <!-- Interaktivität -->
+  <script src="app.js"></script>
 </body>
 </html>
